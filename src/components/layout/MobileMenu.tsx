@@ -19,10 +19,15 @@ export function MobileMenu() {
     if (s.mobileOpen) window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [s.mobileOpen]);
-  if (!s.mobileOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-marfim overflow-y-auto lg:hidden">
+    <div
+      className={`fixed inset-0 z-50 bg-marfim overflow-y-auto lg:hidden transition-transform duration-500 ${
+        s.mobileOpen ? "translate-x-0" : "-translate-x-full pointer-events-none"
+      }`}
+      style={{ transitionTimingFunction: "cubic-bezier(.22,.9,.24,1)" }}
+      aria-hidden={!s.mobileOpen}
+    >
       <div className="px-6 py-5 flex items-center justify-between border-b border-rose-claro">
         <Logo />
         <button aria-label="Fechar" onClick={() => s.setMobileOpen(false)}><X /></button>

@@ -10,11 +10,18 @@ export function Newsletter() {
   const [sent, setSent] = React.useState(false);
 
   return (
-    <section className="bg-terracota text-marfim">
+    <section className="bg-terracota text-marfim relative overflow-hidden">
       <div className="border-b border-marfim/20">
         <Marquee items={["CUPOM LAMOUR10", "10% OFF NA PRIMEIRA COMPRA", "NOVIDADES EM PRIMEIRA MÃO", "RITUAIS EXCLUSIVOS"]} />
       </div>
-      <div className="mx-auto max-w-[1000px] px-5 md:px-10 py-24 text-center">
+      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 pointer-events-none select-none">
+        <div className="marquee-track font-display italic font-light text-[10vw] leading-none opacity-20 whitespace-nowrap">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <span key={i}>ka lamour&nbsp;</span>
+          ))}
+        </div>
+      </div>
+      <div className="mx-auto max-w-[1000px] px-5 md:px-10 py-24 text-center relative">
         <Reveal>
           <p className="caps flex items-center justify-center gap-2 text-rose"><Sparkle />clube ka lamour<Sparkle /></p>
           <h2 className="mt-6 font-display text-4xl md:text-6xl">

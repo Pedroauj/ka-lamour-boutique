@@ -13,10 +13,11 @@ export function Universos() {
           <Reveal key={u.to}>
             <Link
               to={u.to}
-              className="group block relative border-l border-terracota pl-6 md:pl-10 py-8"
+              className="group block relative pl-6 md:pl-10 py-8"
             >
+              <i className="fio-lateral absolute left-0 top-8 bottom-8 w-[3px] bg-terracota" />
               <div className="overflow-hidden">
-                <ProductImage duotone={u.duo} label={u.title.toLowerCase() + " · ka lamour"} outline aspect="4/5" />
+                <ProductImage duotone={u.duo} label={u.title.toLowerCase() + " · ka lamour"} outline aspect="4/5" className="group-hover:scale-105 duration-[1200ms]" />
               </div>
               <div className="mt-6">
                 <p className="caps text-terracota">{u.tag}</p>

@@ -56,10 +56,15 @@ export function Hero() {
           <div className="absolute bottom-0 right-0 w-[62%] h-[58%]">
             <ProductImage duotone={3} label="vestido entardecer" outline />
           </div>
-          <div className="absolute bottom-16 left-0 w-[32%] h-[26%] z-10">
+          <div className="absolute bottom-16 left-0 w-[32%] h-[26%] z-10 float-slow">
             <ProductImage duotone={5} label="detalhe" outline={false} />
           </div>
         </Reveal>
+      </div>
+
+      <div className="hidden md:flex absolute left-6 md:left-10 bottom-8 items-center gap-3 caps text-grafite/60">
+        <span>role a página</span>
+        <i className="block w-px h-11 bg-gradient-to-b from-grafite/60 to-transparent animate-descend" />
       </div>
     </section>
   );

@@ -28,9 +28,12 @@ export function CartDrawer() {
 
   return (
     <>
-      {s.cartOpen && (
-        <div className="fixed inset-0 z-50 bg-carvao/40 backdrop-blur-sm" onClick={() => s.setCartOpen(false)} />
-      )}
+      <div
+        className={`fixed inset-0 z-50 bg-carvao/40 backdrop-blur-sm transition-opacity duration-300 ${
+          s.cartOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => s.setCartOpen(false)}
+      />
       <aside
         aria-label="Sacola"
         className={`fixed top-0 right-0 z-50 h-full w-full max-w-md bg-marfim shadow-2xl transition-transform duration-300 ${

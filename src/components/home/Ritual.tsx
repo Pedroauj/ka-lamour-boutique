@@ -22,10 +22,10 @@ export function Ritual() {
           {STEPS.map((step) => {
             const product = getProduct(step.id);
             return (
-              <Reveal key={step.n}>
+              <Reveal key={step.n} className="group">
                 <div className="relative">
                   <span className="absolute -top-4 -left-2 font-display italic text-6xl text-terracota z-10">{step.n}</span>
-                  <ProductImage duotone={step.duo} label={step.label.toLowerCase()} aspect="4/5" outline />
+                  <ProductImage duotone={step.duo} label={step.label.toLowerCase()} aspect="4/5" outline className="group-hover:-translate-y-2" />
                 </div>
                 <h3 className="mt-6 font-display text-2xl">{step.label}</h3>
                 <p className="mt-2 text-sm text-grafite/80">{step.copy}</p>

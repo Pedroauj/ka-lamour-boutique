@@ -18,7 +18,12 @@ export function FavoritesDrawer() {
 
   return (
     <>
-      {s.favOpen && <div className="fixed inset-0 z-50 bg-carvao/40 backdrop-blur-sm" onClick={() => s.setFavOpen(false)} />}
+      <div
+        className={`fixed inset-0 z-50 bg-carvao/40 backdrop-blur-sm transition-opacity duration-300 ${
+          s.favOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => s.setFavOpen(false)}
+      />
       <aside
         aria-label="Favoritos"
         className={`fixed top-0 right-0 z-50 h-full w-full max-w-md bg-marfim shadow-2xl transition-transform duration-300 ${

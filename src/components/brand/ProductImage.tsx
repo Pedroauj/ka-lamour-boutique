@@ -32,7 +32,7 @@ export function ProductImage({
   const gradId = React.useId();
   return (
     <div
-      className={`${arch ? "arch" : "rounded-lg overflow-hidden"} ${outline ? "arch-outline" : ""} grain relative w-full ${className}`}
+      className={`${arch ? "arch" : "rounded-lg overflow-hidden"} ${outline ? "arch-outline" : ""} grain relative w-full transition-transform duration-500 ${className}`}
       style={{ aspectRatio: aspect }}
     >
       <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full">

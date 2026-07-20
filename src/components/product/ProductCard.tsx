@@ -12,6 +12,7 @@ export function ProductCard({ product }: { product: Product }) {
   const fav = s.favorites.includes(product.id);
   const [size, setSize] = React.useState(product.sizes?.[0]);
   const [quickOpen, setQuickOpen] = React.useState(false);
+  const [pulse, setPulse] = React.useState(false);
   const off = product.compareAt ? Math.round((1 - product.price / product.compareAt) * 100) : 0;
 
   return (
@@ -22,7 +23,7 @@ export function ProductCard({ product }: { product: Product }) {
     >
       <Link to="/produto/$id" params={{ id: product.slug }} className="block">
         <div className="relative">
-          <ProductImage duotone={product.duotone} label={product.imageLabel} aspect="3/4" outline />
+          <ProductImage duotone={product.duotone} label={product.imageLabel} aspect="3/4" outline className="group-hover:-translate-y-1.5" />
           {/* badges */}
           <div className="absolute top-3 left-3 flex flex-col gap-1.5">
             {product.isNew && <span className="caps bg-terracota text-marfim px-2 py-1">Novo</span>}
@@ -31,14 +32,19 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
           <button
             aria-label={fav ? "Remover dos favoritos" : "Favoritar"}
-            onClick={(e) => { e.preventDefault(); s.toggleFav(product.id); toast(fav ? "Removido dos favoritos" : "Adicionado aos favoritos ✦"); }}
+            onClick={(e) => {
+              e.preventDefault();
+              s.toggleFav(product.id);
+              toast(fav ? "Removido dos favoritos" : "Adicionado aos favoritos ✦");
+              if (!fav) { setPulse(true); setTimeout(() => setPulse(false), 500); }
+            }}
             className="absolute top-3 right-3 h-9 w-9 rounded-full bg-marfim/90 backdrop-blur flex items-center justify-center hover:bg-marfim"
           >
-            <Heart className={`h-4 w-4 ${fav ? "fill-terracota text-terracota" : "text-grafite"}`} />
+            <Heart className={`h-4 w-4 ${fav ? "fill-terracota text-terracota" : "text-grafite"} ${pulse ? "animate-heart-pulse" : ""}`} />
           </button>
           {/* Quick shop */}
           {quickOpen && !product.soldOut && product.sizes && product.sizes.length > 1 && (
-            <div className="absolute bottom-3 left-3 right-3 bg-marfim/95 backdrop-blur p-2 flex items-center gap-1 flex-wrap opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute bottom-3 left-3 right-3 bg-marfim/95 backdrop-blur p-2 flex items-center gap-1 flex-wrap opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all">
               {product.sizes.map((sz) => (
                 <button
                   key={sz}

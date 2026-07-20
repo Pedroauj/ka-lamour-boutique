@@ -30,11 +30,20 @@ export function SearchOverlay() {
       .slice(0, 6);
   }, [q]);
 
-  if (!s.searchOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 bg-marfim overflow-y-auto">
-      <div className="mx-auto max-w-[1000px] px-6 py-10">
+    <div
+      className={`fixed inset-0 z-50 bg-marfim overflow-y-auto transition-opacity duration-300 ${
+        s.searchOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+      }`}
+      aria-hidden={!s.searchOpen}
+    >
+      <div
+        className="mx-auto max-w-[1000px] px-6 py-10 transition-transform duration-500"
+        style={{
+          transform: s.searchOpen ? "none" : "translateY(-20px)",
+          transitionTimingFunction: "cubic-bezier(.22,.9,.24,1)",
+        }}
+      >
         <div className="flex justify-end">
           <button aria-label="Fechar busca" onClick={() => s.setSearchOpen(false)}><X /></button>
         </div>

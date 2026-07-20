@@ -115,15 +115,25 @@
   .reveal.in { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1; transform: none; transition: none; }
-    .marquee-track, .spin-slow { animation: none !important; }
+    .marquee-track, .spin-slow, .float-slow, .animate-descend, .animate-heart-pulse { animation: none !important; }
   }
   .marquee { overflow: hidden; }
   .marquee-track { display: inline-flex; gap: 3rem; animation: marquee 32s linear infinite; white-space: nowrap; }
   .marquee-vertical { animation: marquee-v 28s linear infinite; }
   .spin-slow { animation: spin 22s linear infinite; }
+  .float-slow { animation: float 7s ease-in-out infinite; }
+  .animate-descend { animation: descend 2s ease-in-out infinite; }
+  .animate-heart-pulse { animation: heart-pulse .5s; }
   @keyframes marquee { from { transform: translateX(0);} to { transform: translateX(-50%);} }
   @keyframes marquee-v { from { transform: translateY(0);} to { transform: translateY(-50%);} }
   @keyframes spin { to { transform: rotate(360deg);} }
+  @keyframes float { 50% { transform: translateY(-14px); } }
+  @keyframes descend { 50% { transform: translateY(8px); opacity: .4; } }
+  @keyframes heart-pulse { 40% { transform: scale(1.35); } }
+  .arch-outline::before { transition: transform .45s cubic-bezier(.22,.9,.24,1); }
+  .arch-outline:hover::before { transform: translate(6px, 6px); }
+  .fio-lateral { transform: scaleY(0); transform-origin: bottom; transition: transform .6s cubic-bezier(.22,.9,.24,1); }
+  .group:hover .fio-lateral { transform: scaleY(1); }
   .snap-x-mand { scroll-snap-type: x mandatory; }
   .snap-start { scroll-snap-align: start; }
   .no-scrollbar::-webkit-scrollbar { display: none; }
