@@ -77,6 +77,26 @@ export async function deleteProduct(id: string): Promise<void> {
   if (error) throw error;
 }
 
+// Sugere o próximo SKU no padrão KLS-XXxx conforme o tipo do produto:
+// roupa -> 00xx, perfume -> 01xx, cosmetico -> 02xx.
+const SKU_BASE: Record<string, number> = { roupa: 0, perfume: 100, cosmetico: 200 };
+
+export async function nextSku(type: "roupa" | "perfume" | "cosmetico"): Promise<string> {
+  const base = SKU_BASE[type] ?? 0;
+  const { data } = await supabase
+    .from("products")
+    .select("ref")
+    .ilike("ref", "KLS-%")
+    .order("ref", { ascending: false });
+
+  let max = base;
+  for (const row of data ?? []) {
+    const n = parseInt(row.ref.replace(/^KLS-/, ""), 10);
+    if (!Number.isNaN(n) && n >= base && n < base + 100 && n > max) max = n;
+  }
+  return `KLS-${String(max + 1).padStart(4, "0")}`;
+}
+
 // ---------- fotos de produto ----------
 
 export async function listProductImages(productId: string): Promise<ProductImageRow[]> {
