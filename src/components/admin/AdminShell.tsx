@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Package, Tags, ShoppingBag, Ticket, LogOut } from "lucide-react";
+import { Toaster } from "sonner";
 import { signOutAdmin } from "@/lib/admin-auth";
 import { Button } from "@/components/ui/button";
 
@@ -52,6 +53,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         </Button>
       </aside>
       <main className="flex-1 p-8 overflow-x-auto">{children}</main>
+      <Toaster position="bottom-center" richColors />
     </div>
   );
 }

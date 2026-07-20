@@ -1,6 +1,5 @@
 import * as React from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,15 +15,17 @@ function AdminLogin() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
+    setError(null);
     try {
       await signInAdmin(email, password);
       navigate({ to: "/admin/produtos" });
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Não foi possível entrar.");
+      setError(err instanceof Error ? err.message : "Não foi possível entrar.");
     } finally {
       setLoading(false);
     }
@@ -45,6 +46,11 @@ function AdminLogin() {
           <Label htmlFor="password">Senha</Label>
           <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
+        {error && (
+          <p className="text-sm text-destructive border border-destructive/30 bg-destructive/5 rounded-md px-3 py-2">
+            {error}
+          </p>
+        )}
         <Button type="submit" className="w-full" disabled={loading}>
           {loading ? "Entrando…" : "Entrar"}
         </Button>
