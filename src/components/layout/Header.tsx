@@ -27,7 +27,9 @@ export function Header({ transparent = false }: { transparent?: boolean }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      className={`fixed left-0 right-0 z-40 transition-all duration-300 ${
+        scrolled ? "top-0" : "top-10"
+      } ${
         solid
           ? "bg-marfim/85 backdrop-blur-md border-b border-rose-claro"
           : "bg-transparent"
