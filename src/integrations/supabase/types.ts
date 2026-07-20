@@ -14,16 +14,175 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      user_roles: {
+        Row: {
+          id: string
+          user_id: string
+          role: "admin"
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          role: "admin"
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          role?: "admin"
+          created_at?: string
+        }
+        Relationships: []
+      }
+      categories: {
+        Row: {
+          id: string
+          name: string
+          slug: string
+          product_type: "roupa" | "perfume" | "cosmetico"
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          slug: string
+          product_type: "roupa" | "perfume" | "cosmetico"
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          slug?: string
+          product_type?: "roupa" | "perfume" | "cosmetico"
+          created_at?: string
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          id: string
+          ref: string
+          slug: string
+          name: string
+          category_id: string | null
+          price: number
+          compare_at_price: number | null
+          description: string | null
+          stock: number
+          is_new: boolean
+          is_bestseller: boolean
+          is_active: boolean
+          sizes: string[] | null
+          colors: Json | null
+          volumes: string[] | null
+          pyramid: Json | null
+          actives: string[] | null
+          fabric: string | null
+          care: string[] | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          ref: string
+          slug: string
+          name: string
+          category_id?: string | null
+          price: number
+          compare_at_price?: number | null
+          description?: string | null
+          stock?: number
+          is_new?: boolean
+          is_bestseller?: boolean
+          is_active?: boolean
+          sizes?: string[] | null
+          colors?: Json | null
+          volumes?: string[] | null
+          pyramid?: Json | null
+          actives?: string[] | null
+          fabric?: string | null
+          care?: string[] | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          ref?: string
+          slug?: string
+          name?: string
+          category_id?: string | null
+          price?: number
+          compare_at_price?: number | null
+          description?: string | null
+          stock?: number
+          is_new?: boolean
+          is_bestseller?: boolean
+          is_active?: boolean
+          sizes?: string[] | null
+          colors?: Json | null
+          volumes?: string[] | null
+          pyramid?: Json | null
+          actives?: string[] | null
+          fabric?: string | null
+          care?: string[] | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      product_images: {
+        Row: {
+          id: string
+          product_id: string
+          storage_path: string
+          position: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          product_id: string
+          storage_path: string
+          position?: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          product_id?: string
+          storage_path?: string
+          position?: number
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_images_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: { _user_id: string; _role: "admin" }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin"
     }
     CompositeTypes: {
       [_ in never]: never
