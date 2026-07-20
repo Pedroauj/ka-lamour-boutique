@@ -1,24 +1,43 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { SiteShell } from "@/components/layout/SiteShell";
+import { Hero } from "@/components/home/Hero";
+import { Universos } from "@/components/home/Universos";
+import { Categorias } from "@/components/home/Categorias";
+import { Lancamentos } from "@/components/home/Lancamentos";
+import { Ranking } from "@/components/home/Ranking";
+import { ShopTheLook } from "@/components/home/ShopTheLook";
+import { Ritual } from "@/components/home/Ritual";
+import { Campanha } from "@/components/home/Campanha";
+import { Beneficios } from "@/components/home/Beneficios";
+import { ProvaSocial } from "@/components/home/ProvaSocial";
+import { Mural } from "@/components/home/Mural";
+import { Newsletter } from "@/components/home/Newsletter";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Ka Lamour Store — Moda, Perfumaria e Cosméticos" },
+      { name: "description", content: "Vista o que você sente. Perfume o resto. Boutique digital com curadoria editorial de moda feminina, perfumes e cosméticos." },
+    ],
+  }),
+  component: Home,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Home() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <SiteShell transparentHeader>
+      <Hero />
+      <Universos />
+      <Categorias />
+      <Lancamentos />
+      <Ranking />
+      <ShopTheLook />
+      <Ritual />
+      <Campanha />
+      <Beneficios />
+      <ProvaSocial />
+      <Mural />
+      <Newsletter />
+    </SiteShell>
   );
 }
