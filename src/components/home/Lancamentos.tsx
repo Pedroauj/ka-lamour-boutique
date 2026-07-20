@@ -3,7 +3,8 @@ import { novidades, products } from "@/data/products";
 import { Reveal } from "@/components/brand/Reveal";
 
 export function Lancamentos() {
-  const items = [...novidades(), ...products.slice(0, 5)].slice(0, 8);
+  const seen = new Set<string>();
+  const items = [...novidades(), ...products].filter((p) => (seen.has(p.id) ? false : (seen.add(p.id), true))).slice(0, 8);
   return (
     <section className="bg-porcelana py-24 md:py-32">
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
