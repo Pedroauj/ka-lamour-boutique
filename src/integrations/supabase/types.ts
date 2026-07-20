@@ -14,152 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
-      user_roles: {
-        Row: {
-          id: string
-          user_id: string
-          role: "admin"
-          created_at: string
-        }
-        Insert: {
-          id?: string
-          user_id: string
-          role: "admin"
-          created_at?: string
-        }
-        Update: {
-          id?: string
-          user_id?: string
-          role?: "admin"
-          created_at?: string
-        }
-        Relationships: []
-      }
       categories: {
         Row: {
+          created_at: string
           id: string
           name: string
+          product_type: string
           slug: string
-          product_type: "roupa" | "perfume" | "cosmetico"
-          created_at: string
         }
         Insert: {
+          created_at?: string
           id?: string
           name: string
+          product_type: string
           slug: string
-          product_type: "roupa" | "perfume" | "cosmetico"
-          created_at?: string
         }
         Update: {
+          created_at?: string
           id?: string
           name?: string
+          product_type?: string
           slug?: string
-          product_type?: "roupa" | "perfume" | "cosmetico"
-          created_at?: string
         }
         Relationships: []
-      }
-      products: {
-        Row: {
-          id: string
-          ref: string
-          slug: string
-          name: string
-          category_id: string | null
-          price: number
-          compare_at_price: number | null
-          description: string | null
-          stock: number
-          is_new: boolean
-          is_bestseller: boolean
-          is_active: boolean
-          sizes: string[] | null
-          colors: Json | null
-          volumes: string[] | null
-          pyramid: Json | null
-          actives: string[] | null
-          fabric: string | null
-          care: string[] | null
-          created_at: string
-          updated_at: string
-        }
-        Insert: {
-          id?: string
-          ref: string
-          slug: string
-          name: string
-          category_id?: string | null
-          price: number
-          compare_at_price?: number | null
-          description?: string | null
-          stock?: number
-          is_new?: boolean
-          is_bestseller?: boolean
-          is_active?: boolean
-          sizes?: string[] | null
-          colors?: Json | null
-          volumes?: string[] | null
-          pyramid?: Json | null
-          actives?: string[] | null
-          fabric?: string | null
-          care?: string[] | null
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          id?: string
-          ref?: string
-          slug?: string
-          name?: string
-          category_id?: string | null
-          price?: number
-          compare_at_price?: number | null
-          description?: string | null
-          stock?: number
-          is_new?: boolean
-          is_bestseller?: boolean
-          is_active?: boolean
-          sizes?: string[] | null
-          colors?: Json | null
-          volumes?: string[] | null
-          pyramid?: Json | null
-          actives?: string[] | null
-          fabric?: string | null
-          care?: string[] | null
-          created_at?: string
-          updated_at?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "products_category_id_fkey"
-            columns: ["category_id"]
-            isOneToOne: false
-            referencedRelation: "categories"
-            referencedColumns: ["id"]
-          },
-        ]
       }
       product_images: {
         Row: {
+          created_at: string
           id: string
+          position: number
           product_id: string
           storage_path: string
-          position: number
-          created_at: string
         }
         Insert: {
+          created_at?: string
           id?: string
+          position?: number
           product_id: string
           storage_path: string
-          position?: number
-          created_at?: string
         }
         Update: {
+          created_at?: string
           id?: string
+          position?: number
           product_id?: string
           storage_path?: string
-          position?: number
-          created_at?: string
         }
         Relationships: [
           {
@@ -171,13 +70,117 @@ export type Database = {
           },
         ]
       }
+      products: {
+        Row: {
+          actives: string[] | null
+          care: string[] | null
+          category_id: string | null
+          colors: Json | null
+          compare_at_price: number | null
+          created_at: string
+          description: string | null
+          fabric: string | null
+          id: string
+          is_active: boolean
+          is_bestseller: boolean
+          is_new: boolean
+          name: string
+          price: number
+          pyramid: Json | null
+          ref: string
+          sizes: string[] | null
+          slug: string
+          stock: number
+          updated_at: string
+          volumes: string[] | null
+        }
+        Insert: {
+          actives?: string[] | null
+          care?: string[] | null
+          category_id?: string | null
+          colors?: Json | null
+          compare_at_price?: number | null
+          created_at?: string
+          description?: string | null
+          fabric?: string | null
+          id?: string
+          is_active?: boolean
+          is_bestseller?: boolean
+          is_new?: boolean
+          name: string
+          price: number
+          pyramid?: Json | null
+          ref: string
+          sizes?: string[] | null
+          slug: string
+          stock?: number
+          updated_at?: string
+          volumes?: string[] | null
+        }
+        Update: {
+          actives?: string[] | null
+          care?: string[] | null
+          category_id?: string | null
+          colors?: Json | null
+          compare_at_price?: number | null
+          created_at?: string
+          description?: string | null
+          fabric?: string | null
+          id?: string
+          is_active?: boolean
+          is_bestseller?: boolean
+          is_new?: boolean
+          name?: string
+          price?: number
+          pyramid?: Json | null
+          ref?: string
+          sizes?: string[] | null
+          slug?: string
+          stock?: number
+          updated_at?: string
+          volumes?: string[] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
       has_role: {
-        Args: { _user_id: string; _role: "admin" }
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
         Returns: boolean
       }
     }
@@ -309,6 +312,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin"],
+    },
   },
 } as const
