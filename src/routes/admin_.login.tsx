@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signInAdmin } from "@/lib/admin-auth";
 
-export const Route = createFileRoute("/admin/login")({
+export const Route = createFileRoute("/admin_/login")({
   head: () => ({ meta: [{ title: "Login administrativo — Ka Lamour Store" }, { name: "robots", content: "noindex" }] }),
   component: AdminLogin,
 });
