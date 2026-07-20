@@ -9,50 +9,25 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as RoupasRouteImport } from './routes/roupas'
-import { Route as PerfumesRouteImport } from './routes/perfumes'
-import { Route as OfertasRouteImport } from './routes/ofertas'
-import { Route as NovidadesRouteImport } from './routes/novidades'
-import { Route as FavoritosRouteImport } from './routes/favoritos'
-import { Route as CosmeticosRouteImport } from './routes/cosmeticos'
-import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as CosmeticosRouteImport } from './routes/cosmeticos'
+import { Route as FavoritosRouteImport } from './routes/favoritos'
+import { Route as NovidadesRouteImport } from './routes/novidades'
+import { Route as OfertasRouteImport } from './routes/ofertas'
+import { Route as PerfumesRouteImport } from './routes/perfumes'
+import { Route as RoupasRouteImport } from './routes/roupas'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
-import { Route as ProdutoIdRouteImport } from './routes/produto.$id'
-import { Route as AdminLoginRouteImport } from './routes/admin_.login'
 import { Route as AdminCategoriasRouteImport } from './routes/admin.categorias'
+import { Route as AdminLoginRouteImport } from './routes/admin_.login'
+import { Route as ProdutoIdRouteImport } from './routes/produto.$id'
 import { Route as AdminProdutosIndexRouteImport } from './routes/admin.produtos.index'
-import { Route as AdminProdutosNovoRouteImport } from './routes/admin.produtos.novo'
 import { Route as AdminProdutosIdRouteImport } from './routes/admin.produtos.$id'
+import { Route as AdminProdutosNovoRouteImport } from './routes/admin.produtos.novo'
 
-const RoupasRoute = RoupasRouteImport.update({
-  id: '/roupas',
-  path: '/roupas',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PerfumesRoute = PerfumesRouteImport.update({
-  id: '/perfumes',
-  path: '/perfumes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OfertasRoute = OfertasRouteImport.update({
-  id: '/ofertas',
-  path: '/ofertas',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NovidadesRoute = NovidadesRouteImport.update({
-  id: '/novidades',
-  path: '/novidades',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FavoritosRoute = FavoritosRouteImport.update({
-  id: '/favoritos',
-  path: '/favoritos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CosmeticosRoute = CosmeticosRouteImport.update({
-  id: '/cosmeticos',
-  path: '/cosmeticos',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -60,9 +35,34 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const CosmeticosRoute = CosmeticosRouteImport.update({
+  id: '/cosmeticos',
+  path: '/cosmeticos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FavoritosRoute = FavoritosRouteImport.update({
+  id: '/favoritos',
+  path: '/favoritos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovidadesRoute = NovidadesRouteImport.update({
+  id: '/novidades',
+  path: '/novidades',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfertasRoute = OfertasRouteImport.update({
+  id: '/ofertas',
+  path: '/ofertas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfumesRoute = PerfumesRouteImport.update({
+  id: '/perfumes',
+  path: '/perfumes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RoupasRoute = RoupasRouteImport.update({
+  id: '/roupas',
+  path: '/roupas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -70,34 +70,34 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
-const ProdutoIdRoute = ProdutoIdRouteImport.update({
-  id: '/produto/$id',
-  path: '/produto/$id',
-  getParentRoute: () => rootRouteImport,
+const AdminCategoriasRoute = AdminCategoriasRouteImport.update({
+  id: '/categorias',
+  path: '/categorias',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/admin_/login',
   path: '/admin/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminCategoriasRoute = AdminCategoriasRouteImport.update({
-  id: '/categorias',
-  path: '/categorias',
-  getParentRoute: () => AdminRoute,
+const ProdutoIdRoute = ProdutoIdRouteImport.update({
+  id: '/produto/$id',
+  path: '/produto/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminProdutosIndexRoute = AdminProdutosIndexRouteImport.update({
   id: '/produtos/',
   path: '/produtos/',
   getParentRoute: () => AdminRoute,
 } as any)
-const AdminProdutosNovoRoute = AdminProdutosNovoRouteImport.update({
-  id: '/produtos/novo',
-  path: '/produtos/novo',
-  getParentRoute: () => AdminRoute,
-} as any)
 const AdminProdutosIdRoute = AdminProdutosIdRouteImport.update({
   id: '/produtos/$id',
   path: '/produtos/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProdutosNovoRoute = AdminProdutosNovoRouteImport.update({
+  id: '/produtos/novo',
+  path: '/produtos/novo',
   getParentRoute: () => AdminRoute,
 } as any)
 
@@ -220,46 +220,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/roupas': {
-      id: '/roupas'
-      path: '/roupas'
-      fullPath: '/roupas'
-      preLoaderRoute: typeof RoupasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/perfumes': {
-      id: '/perfumes'
-      path: '/perfumes'
-      fullPath: '/perfumes'
-      preLoaderRoute: typeof PerfumesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ofertas': {
-      id: '/ofertas'
-      path: '/ofertas'
-      fullPath: '/ofertas'
-      preLoaderRoute: typeof OfertasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/novidades': {
-      id: '/novidades'
-      path: '/novidades'
-      fullPath: '/novidades'
-      preLoaderRoute: typeof NovidadesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/favoritos': {
-      id: '/favoritos'
-      path: '/favoritos'
-      fullPath: '/favoritos'
-      preLoaderRoute: typeof FavoritosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cosmeticos': {
-      id: '/cosmeticos'
-      path: '/cosmeticos'
-      fullPath: '/cosmeticos'
-      preLoaderRoute: typeof CosmeticosRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -269,11 +234,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/cosmeticos': {
+      id: '/cosmeticos'
+      path: '/cosmeticos'
+      fullPath: '/cosmeticos'
+      preLoaderRoute: typeof CosmeticosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/favoritos': {
+      id: '/favoritos'
+      path: '/favoritos'
+      fullPath: '/favoritos'
+      preLoaderRoute: typeof FavoritosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/novidades': {
+      id: '/novidades'
+      path: '/novidades'
+      fullPath: '/novidades'
+      preLoaderRoute: typeof NovidadesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ofertas': {
+      id: '/ofertas'
+      path: '/ofertas'
+      fullPath: '/ofertas'
+      preLoaderRoute: typeof OfertasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfumes': {
+      id: '/perfumes'
+      path: '/perfumes'
+      fullPath: '/perfumes'
+      preLoaderRoute: typeof PerfumesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/roupas': {
+      id: '/roupas'
+      path: '/roupas'
+      fullPath: '/roupas'
+      preLoaderRoute: typeof RoupasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -283,12 +283,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/produto/$id': {
-      id: '/produto/$id'
-      path: '/produto/$id'
-      fullPath: '/produto/$id'
-      preLoaderRoute: typeof ProdutoIdRouteImport
-      parentRoute: typeof rootRouteImport
+    '/admin/categorias': {
+      id: '/admin/categorias'
+      path: '/categorias'
+      fullPath: '/admin/categorias'
+      preLoaderRoute: typeof AdminCategoriasRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin_/login': {
       id: '/admin_/login'
@@ -297,12 +297,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/categorias': {
-      id: '/admin/categorias'
-      path: '/categorias'
-      fullPath: '/admin/categorias'
-      preLoaderRoute: typeof AdminCategoriasRouteImport
-      parentRoute: typeof AdminRoute
+    '/produto/$id': {
+      id: '/produto/$id'
+      path: '/produto/$id'
+      fullPath: '/produto/$id'
+      preLoaderRoute: typeof ProdutoIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/admin/produtos/': {
       id: '/admin/produtos/'
@@ -311,18 +311,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProdutosIndexRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/admin/produtos/novo': {
-      id: '/admin/produtos/novo'
-      path: '/produtos/novo'
-      fullPath: '/admin/produtos/novo'
-      preLoaderRoute: typeof AdminProdutosNovoRouteImport
-      parentRoute: typeof AdminRoute
-    }
     '/admin/produtos/$id': {
       id: '/admin/produtos/$id'
       path: '/produtos/$id'
       fullPath: '/admin/produtos/$id'
       preLoaderRoute: typeof AdminProdutosIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/produtos/novo': {
+      id: '/admin/produtos/novo'
+      path: '/produtos/novo'
+      fullPath: '/admin/produtos/novo'
+      preLoaderRoute: typeof AdminProdutosNovoRouteImport
       parentRoute: typeof AdminRoute
     }
   }
@@ -361,13 +361,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
