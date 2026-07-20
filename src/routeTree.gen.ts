@@ -9,38 +9,175 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RoupasRouteImport } from './routes/roupas'
+import { Route as PerfumesRouteImport } from './routes/perfumes'
+import { Route as OfertasRouteImport } from './routes/ofertas'
+import { Route as NovidadesRouteImport } from './routes/novidades'
+import { Route as FavoritosRouteImport } from './routes/favoritos'
+import { Route as CosmeticosRouteImport } from './routes/cosmeticos'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProdutoIdRouteImport } from './routes/produto.$id'
 
+const RoupasRoute = RoupasRouteImport.update({
+  id: '/roupas',
+  path: '/roupas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfumesRoute = PerfumesRouteImport.update({
+  id: '/perfumes',
+  path: '/perfumes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfertasRoute = OfertasRouteImport.update({
+  id: '/ofertas',
+  path: '/ofertas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovidadesRoute = NovidadesRouteImport.update({
+  id: '/novidades',
+  path: '/novidades',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FavoritosRoute = FavoritosRouteImport.update({
+  id: '/favoritos',
+  path: '/favoritos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CosmeticosRoute = CosmeticosRouteImport.update({
+  id: '/cosmeticos',
+  path: '/cosmeticos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProdutoIdRoute = ProdutoIdRouteImport.update({
+  id: '/produto/$id',
+  path: '/produto/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cosmeticos': typeof CosmeticosRoute
+  '/favoritos': typeof FavoritosRoute
+  '/novidades': typeof NovidadesRoute
+  '/ofertas': typeof OfertasRoute
+  '/perfumes': typeof PerfumesRoute
+  '/roupas': typeof RoupasRoute
+  '/produto/$id': typeof ProdutoIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cosmeticos': typeof CosmeticosRoute
+  '/favoritos': typeof FavoritosRoute
+  '/novidades': typeof NovidadesRoute
+  '/ofertas': typeof OfertasRoute
+  '/perfumes': typeof PerfumesRoute
+  '/roupas': typeof RoupasRoute
+  '/produto/$id': typeof ProdutoIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cosmeticos': typeof CosmeticosRoute
+  '/favoritos': typeof FavoritosRoute
+  '/novidades': typeof NovidadesRoute
+  '/ofertas': typeof OfertasRoute
+  '/perfumes': typeof PerfumesRoute
+  '/roupas': typeof RoupasRoute
+  '/produto/$id': typeof ProdutoIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/cosmeticos'
+    | '/favoritos'
+    | '/novidades'
+    | '/ofertas'
+    | '/perfumes'
+    | '/roupas'
+    | '/produto/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/cosmeticos'
+    | '/favoritos'
+    | '/novidades'
+    | '/ofertas'
+    | '/perfumes'
+    | '/roupas'
+    | '/produto/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/cosmeticos'
+    | '/favoritos'
+    | '/novidades'
+    | '/ofertas'
+    | '/perfumes'
+    | '/roupas'
+    | '/produto/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CosmeticosRoute: typeof CosmeticosRoute
+  FavoritosRoute: typeof FavoritosRoute
+  NovidadesRoute: typeof NovidadesRoute
+  OfertasRoute: typeof OfertasRoute
+  PerfumesRoute: typeof PerfumesRoute
+  RoupasRoute: typeof RoupasRoute
+  ProdutoIdRoute: typeof ProdutoIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/roupas': {
+      id: '/roupas'
+      path: '/roupas'
+      fullPath: '/roupas'
+      preLoaderRoute: typeof RoupasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfumes': {
+      id: '/perfumes'
+      path: '/perfumes'
+      fullPath: '/perfumes'
+      preLoaderRoute: typeof PerfumesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ofertas': {
+      id: '/ofertas'
+      path: '/ofertas'
+      fullPath: '/ofertas'
+      preLoaderRoute: typeof OfertasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/novidades': {
+      id: '/novidades'
+      path: '/novidades'
+      fullPath: '/novidades'
+      preLoaderRoute: typeof NovidadesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/favoritos': {
+      id: '/favoritos'
+      path: '/favoritos'
+      fullPath: '/favoritos'
+      preLoaderRoute: typeof FavoritosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cosmeticos': {
+      id: '/cosmeticos'
+      path: '/cosmeticos'
+      fullPath: '/cosmeticos'
+      preLoaderRoute: typeof CosmeticosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +185,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/produto/$id': {
+      id: '/produto/$id'
+      path: '/produto/$id'
+      fullPath: '/produto/$id'
+      preLoaderRoute: typeof ProdutoIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CosmeticosRoute: CosmeticosRoute,
+  FavoritosRoute: FavoritosRoute,
+  NovidadesRoute: NovidadesRoute,
+  OfertasRoute: OfertasRoute,
+  PerfumesRoute: PerfumesRoute,
+  RoupasRoute: RoupasRoute,
+  ProdutoIdRoute: ProdutoIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
