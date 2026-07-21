@@ -97,6 +97,41 @@ export async function nextSku(type: "roupa" | "perfume" | "cosmetico"): Promise<
   return `KLS-${String(max + 1).padStart(4, "0")}`;
 }
 
+// ---------- catálogo público (vitrine) ----------
+
+export interface PublicProductRow extends ProductRow {
+  categories: Pick<CategoryRow, "id" | "name" | "slug" | "product_type"> | null;
+  product_images: Pick<ProductImageRow, "storage_path" | "position">[];
+}
+
+const PUBLIC_SELECT = "*, categories(id, name, slug, product_type), product_images(storage_path, position)";
+
+function sortImages(row: PublicProductRow): PublicProductRow {
+  row.product_images = [...(row.product_images ?? [])].sort((a, b) => a.position - b.position);
+  return row;
+}
+
+export async function listPublicCatalog(): Promise<PublicProductRow[]> {
+  const { data, error } = await supabase
+    .from("products")
+    .select(PUBLIC_SELECT)
+    .eq("is_active", true)
+    .order("created_at", { ascending: false });
+  if (error) throw error;
+  return (data as unknown as PublicProductRow[]).map(sortImages);
+}
+
+export async function getPublicProductBySlug(slug: string): Promise<PublicProductRow | null> {
+  const { data, error } = await supabase
+    .from("products")
+    .select(PUBLIC_SELECT)
+    .eq("slug", slug)
+    .eq("is_active", true)
+    .maybeSingle();
+  if (error) throw error;
+  return data ? sortImages(data as unknown as PublicProductRow) : null;
+}
+
 // ---------- fotos de produto ----------
 
 export async function listProductImages(productId: string): Promise<ProductImageRow[]> {

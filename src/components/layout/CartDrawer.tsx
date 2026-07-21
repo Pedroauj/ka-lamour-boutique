@@ -2,18 +2,19 @@ import * as React from "react";
 import { Link } from "@tanstack/react-router";
 import { X, Minus, Plus } from "lucide-react";
 import { useStore } from "@/lib/store";
+import { useCatalog } from "@/lib/catalog-store";
 import { brl, pix, parcelas } from "@/lib/format";
 import { ProductImage } from "@/components/brand/ProductImage";
-import { products } from "@/data/products";
 import { Sparkle } from "@/components/brand/Logo";
 
 const FRETE_MIN = 299;
 
 export function CartDrawer() {
   const s = useStore();
+  const { products } = useCatalog();
   const suggestion = React.useMemo(
     () => products.find((p) => !s.cart.some((i) => i.productId === p.id) && p.isBestseller),
-    [s.cart]
+    [s.cart, products]
   );
 
   React.useEffect(() => {
@@ -76,7 +77,7 @@ export function CartDrawer() {
               {s.cartProducts.map(({ item, product }, idx) => (
                 <li key={idx} className="flex gap-4 p-6">
                   <div className="w-20 flex-shrink-0">
-                    <ProductImage duotone={product.duotone} label="" aspect="3/4" outline={false} />
+                    <ProductImage duotone={product.duotone} src={product.images[0]} label="" aspect="3/4" outline={false} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between gap-3">
@@ -104,7 +105,7 @@ export function CartDrawer() {
             <div className="mx-6 my-4 p-4 border border-rose-claro bg-porcelana/50">
               <p className="caps text-terracota">Complete seu ritual</p>
               <div className="flex gap-3 mt-3 items-center">
-                <div className="w-16"><ProductImage duotone={suggestion.duotone} label="" aspect="3/4" outline={false} /></div>
+                <div className="w-16"><ProductImage duotone={suggestion.duotone} src={suggestion.images[0]} label="" aspect="3/4" outline={false} /></div>
                 <div className="flex-1">
                   <p className="text-sm font-medium">{suggestion.name}</p>
                   <p className="text-sm text-terracota">{brl(suggestion.price)}</p>

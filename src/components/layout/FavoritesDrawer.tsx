@@ -1,12 +1,13 @@
 import * as React from "react";
 import { X } from "lucide-react";
 import { useStore } from "@/lib/store";
-import { products } from "@/data/products";
+import { useCatalog } from "@/lib/catalog-store";
 import { ProductImage } from "@/components/brand/ProductImage";
 import { brl } from "@/lib/format";
 
 export function FavoritesDrawer() {
   const s = useStore();
+  const { products } = useCatalog();
   const favs = products.filter((p) => s.favorites.includes(p.id));
 
   React.useEffect(() => {
@@ -43,7 +44,7 @@ export function FavoritesDrawer() {
           <ul className="divide-y divide-rose-claro overflow-y-auto" style={{ maxHeight: "calc(100vh - 80px)" }}>
             {favs.map((p) => (
               <li key={p.id} className="flex gap-4 p-6">
-                <div className="w-20"><ProductImage duotone={p.duotone} label="" aspect="3/4" /></div>
+                <div className="w-20"><ProductImage duotone={p.duotone} src={p.images[0]} label="" aspect="3/4" /></div>
                 <div className="flex-1">
                   <p className="text-sm font-medium">{p.name}</p>
                   <p className="text-sm text-terracota">{brl(p.price)}</p>

@@ -8,6 +8,8 @@ interface Props {
   arch?: boolean;
   outline?: boolean;
   glyph?: string;
+  src?: string; // foto real; quando presente, substitui o gradiente placeholder
+  alt?: string;
 }
 
 const palettes = [
@@ -27,34 +29,42 @@ export function ProductImage({
   arch = true,
   outline = false,
   glyph = "K",
+  src,
+  alt,
 }: Props) {
   const [a, b] = palettes[duotone % palettes.length];
   const gradId = React.useId();
   return (
     <div
-      className={`${arch ? "arch" : "rounded-lg overflow-hidden"} ${outline ? "arch-outline" : ""} grain relative w-full transition-transform duration-500 ${className}`}
+      className={`${arch ? "arch" : "rounded-lg overflow-hidden"} ${outline ? "arch-outline" : ""} ${src ? "" : "grain"} relative w-full transition-transform duration-500 ${className}`}
       style={{ aspectRatio: aspect }}
     >
-      <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full">
-        <defs>
-          <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor={a} />
-            <stop offset="100%" stopColor={b} />
-          </linearGradient>
-        </defs>
-        <rect width="300" height="400" fill={`url(#${gradId})`} />
-        <text
-          x="50%" y="52%"
-          textAnchor="middle" dominantBaseline="middle"
-          fontFamily="Fraunces, serif" fontStyle="italic" fontSize="180"
-          fill="rgba(45,42,41,0.18)"
-        >
-          {glyph}
-        </text>
-      </svg>
-      <span className="caps absolute bottom-3 left-3 right-3 text-marfim/90 mix-blend-difference">
-        {label}
-      </span>
+      {src ? (
+        <img src={src} alt={alt ?? label} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+      ) : (
+        <>
+          <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full">
+            <defs>
+              <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor={a} />
+                <stop offset="100%" stopColor={b} />
+              </linearGradient>
+            </defs>
+            <rect width="300" height="400" fill={`url(#${gradId})`} />
+            <text
+              x="50%" y="52%"
+              textAnchor="middle" dominantBaseline="middle"
+              fontFamily="Fraunces, serif" fontStyle="italic" fontSize="180"
+              fill="rgba(45,42,41,0.18)"
+            >
+              {glyph}
+            </text>
+          </svg>
+          <span className="caps absolute bottom-3 left-3 right-3 text-marfim/90 mix-blend-difference">
+            {label}
+          </span>
+        </>
+      )}
     </div>
   );
 }

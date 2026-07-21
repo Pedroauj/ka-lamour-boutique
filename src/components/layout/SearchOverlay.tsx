@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from "@tanstack/react-router";
 import { X, Search as SearchIcon } from "lucide-react";
 import { useStore } from "@/lib/store";
-import { products } from "@/data/products";
+import { useCatalog } from "@/lib/catalog-store";
 import { stripAccents, brl } from "@/lib/format";
 import { ProductImage } from "@/components/brand/ProductImage";
 
@@ -10,6 +10,7 @@ const POPULAR = ["Vestido midi", "Rubra perfume", "Sérum vitamina C", "Blazer",
 
 export function SearchOverlay() {
   const s = useStore();
+  const { products } = useCatalog();
   const [q, setQ] = React.useState("");
   const inputRef = React.useRef<HTMLInputElement>(null);
 
@@ -28,7 +29,7 @@ export function SearchOverlay() {
     return products
       .filter((p) => stripAccents(p.name + " " + p.category + " " + p.description).includes(t))
       .slice(0, 6);
-  }, [q]);
+  }, [q, products]);
 
   return (
     <div
@@ -70,7 +71,7 @@ export function SearchOverlay() {
                     onClick={() => { s.addRecent(q); s.setSearchOpen(false); }}
                     className="flex items-center gap-4 py-4 hover:bg-porcelana/40"
                   >
-                    <div className="w-16"><ProductImage duotone={p.duotone} label="" aspect="1/1" arch={false} /></div>
+                    <div className="w-16"><ProductImage duotone={p.duotone} src={p.images[0]} label="" aspect="1/1" arch={false} /></div>
                     <div className="flex-1">
                       <p className="font-medium">{p.name}</p>
                       <p className="caps text-muted-foreground">{p.category}</p>

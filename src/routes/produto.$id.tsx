@@ -3,7 +3,9 @@ import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { Heart, Share2, Star, Minus, Plus } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
-import { getProduct, products, type Product } from "@/data/products";
+import { type Product } from "@/data/products";
+import { getPublicProductBySlug } from "@/lib/supabase-catalog";
+import { rowToProduct, useCatalog } from "@/lib/catalog-store";
 import { ProductImage } from "@/components/brand/ProductImage";
 import { ProductCard } from "@/components/product/ProductCard";
 import { brl, pix, parcelas } from "@/lib/format";
@@ -11,10 +13,10 @@ import { useStore } from "@/lib/store";
 import { WhatsAppFab } from "@/components/layout/WhatsAppFab";
 
 export const Route = createFileRoute("/produto/$id")({
-  loader: ({ params }) => {
-    const product = getProduct(params.id);
-    if (!product) throw notFound();
-    return { product };
+  loader: async ({ params }) => {
+    const row = await getPublicProductBySlug(params.id);
+    if (!row) throw notFound();
+    return { product: rowToProduct(row) };
   },
   head: ({ loaderData }) => ({
     meta: loaderData
@@ -41,10 +43,12 @@ function ProductPage() {
 
 function Inner({ product }: { product: Product }) {
   const s = useStore();
+  const { products } = useCatalog();
   const [size, setSize] = React.useState<string | undefined>(product.sizes?.[0]);
   const [color, setColor] = React.useState<string | undefined>(product.colors?.[0]?.name);
   const [volume, setVolume] = React.useState<string | undefined>(product.volumes?.[0]);
   const [qty, setQty] = React.useState(1);
+  const [activeImg, setActiveImg] = React.useState(0);
   const [cep, setCep] = React.useState("");
   const [frete, setFrete] = React.useState<null | { padrao: number; expressa: number }>(null);
   const fav = s.favorites.includes(product.id);
@@ -75,24 +79,39 @@ function Inner({ product }: { product: Product }) {
           {/* Galeria */}
           <div className="lg:sticky lg:top-28 self-start grid gap-4 grid-cols-[80px_1fr]">
             <div className="flex flex-col gap-3">
-              {[0, 1, 2, 3, 4].map((i) => (
-                <div key={i} className="w-20 border border-rose-claro">
-                  <ProductImage duotone={(product.duotone + i) % 6} label="" aspect="3/4" arch={false} />
-                </div>
+              {(product.images.length > 0 ? product.images : [0, 1, 2, 3]).map((img, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setActiveImg(i)}
+                  className={`w-20 border ${activeImg === i ? "border-terracota" : "border-rose-claro"}`}
+                >
+                  <ProductImage
+                    duotone={(product.duotone + i) % 6}
+                    src={product.images[i]}
+                    label="" aspect="3/4" arch={false}
+                  />
+                </button>
               ))}
             </div>
-            <ProductImage duotone={product.duotone} label={product.imageLabel} aspect="3/4" outline />
+            <ProductImage
+              duotone={product.duotone}
+              src={product.images[activeImg] ?? product.images[0]}
+              label={product.imageLabel} aspect="3/4" outline
+            />
           </div>
 
           {/* Info */}
           <div>
             <p className="caps text-terracota">{product.category} · ref. {product.ref}</p>
             <h1 className="mt-3 font-display text-4xl md:text-6xl leading-[1]">{product.name}</h1>
-            <div className="flex items-center gap-2 mt-4 text-rosewood">
-              <Star className="h-4 w-4 fill-current" />
-              <span className="text-sm">{product.rating.toFixed(1)}</span>
-              <span className="text-sm text-muted-foreground">({product.reviews} avaliações)</span>
-            </div>
+            {product.reviews > 0 && (
+              <div className="flex items-center gap-2 mt-4 text-rosewood">
+                <Star className="h-4 w-4 fill-current" />
+                <span className="text-sm">{product.rating.toFixed(1)}</span>
+                <span className="text-sm text-muted-foreground">({product.reviews} avaliações)</span>
+              </div>
+            )}
 
             <div className="mt-6">
               {product.compareAt && <p className="text-sm text-muted-foreground line-through">{brl(product.compareAt)}</p>}

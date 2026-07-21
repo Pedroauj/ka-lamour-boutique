@@ -1,8 +1,9 @@
 import { ProductCard } from "@/components/product/ProductCard";
-import { novidades, products } from "@/data/products";
+import { useCatalog } from "@/lib/catalog-store";
 import { Reveal } from "@/components/brand/Reveal";
 
 export function Lancamentos() {
+  const { novidades, products } = useCatalog();
   const seen = new Set<string>();
   const items = [...novidades(), ...products].filter((p) => (seen.has(p.id) ? false : (seen.add(p.id), true))).slice(0, 8);
   return (

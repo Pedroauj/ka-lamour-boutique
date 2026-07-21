@@ -23,7 +23,7 @@ export function ProductCard({ product }: { product: Product }) {
     >
       <Link to="/produto/$id" params={{ id: product.slug }} className="block">
         <div className="relative">
-          <ProductImage duotone={product.duotone} label={product.imageLabel} aspect="3/4" outline className="group-hover:-translate-y-1.5" />
+          <ProductImage duotone={product.duotone} src={product.images[0]} label={product.imageLabel} aspect="3/4" outline className="group-hover:-translate-y-1.5" />
           {/* badges */}
           <div className="absolute top-3 left-3 flex flex-col gap-1.5">
             {product.isNew && <span className="caps bg-terracota text-marfim px-2 py-1">Novo</span>}
@@ -63,11 +63,13 @@ export function ProductCard({ product }: { product: Product }) {
           <p className="caps text-muted-foreground">{product.category}</p>
           <h3 className="font-display text-lg leading-snug text-carvao">{product.name}</h3>
         </Link>
-        <div className="flex items-center gap-1 text-xs text-rosewood">
-          <Star className="h-3 w-3 fill-current" />
-          <span>{product.rating.toFixed(1)}</span>
-          <span className="text-muted-foreground">({product.reviews})</span>
-        </div>
+        {product.reviews > 0 && (
+          <div className="flex items-center gap-1 text-xs text-rosewood">
+            <Star className="h-3 w-3 fill-current" />
+            <span>{product.rating.toFixed(1)}</span>
+            <span className="text-muted-foreground">({product.reviews})</span>
+          </div>
+        )}
         <div className="pt-1">
           {product.compareAt && (
             <p className="text-xs text-muted-foreground line-through">{brl(product.compareAt)}</p>

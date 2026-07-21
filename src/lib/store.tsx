@@ -1,5 +1,6 @@
 import * as React from "react";
-import { products, type Product } from "@/data/products";
+import type { Product } from "@/data/products";
+import { useCatalog } from "@/lib/catalog-store";
 
 export interface CartItem {
   productId: string;
@@ -37,6 +38,7 @@ interface StoreState {
 const Ctx = React.createContext<(StoreState & UIState) | null>(null);
 
 export function StoreProvider({ children }: { children: React.ReactNode }) {
+  const { getProduct } = useCatalog();
   const [cart, setCart] = React.useState<CartItem[]>([]);
   const [favorites, setFavorites] = React.useState<string[]>([]);
   const [recentSearches, setRecent] = React.useState<string[]>([]);
@@ -49,11 +51,11 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     () =>
       cart
         .map((item) => {
-          const product = products.find((p) => p.id === item.productId);
+          const product = getProduct(item.productId);
           return product ? { item, product } : null;
         })
         .filter(Boolean) as { item: CartItem; product: Product }[],
-    [cart]
+    [cart, getProduct]
   );
 
   const cartTotal = cartProducts.reduce((s, { item, product }) => s + product.price * item.qty, 0);

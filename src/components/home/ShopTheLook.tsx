@@ -1,12 +1,12 @@
 import * as React from "react";
 import { toast } from "sonner";
-import { getProduct } from "@/data/products";
 import { ProductImage } from "@/components/brand/ProductImage";
 import { brl } from "@/lib/format";
 import { Reveal } from "@/components/brand/Reveal";
 import { useStore } from "@/lib/store";
+import { useCatalog } from "@/lib/catalog-store";
 
-const LOOK_IDS = ["kls-0001", "kls-0101", "kls-0201"];
+const LOOK_SLUGS = ["vestido-midi-entardecer", "rubra-edp-50ml", "manteiga-corporal-karite-48h"];
 const HOTSPOTS = [
   { top: "22%", left: "58%" },
   { top: "52%", left: "36%" },
@@ -15,9 +15,11 @@ const HOTSPOTS = [
 
 export function ShopTheLook() {
   const s = useStore();
+  const { getProduct } = useCatalog();
   const [active, setActive] = React.useState(0);
-  const items = LOOK_IDS.map((id) => getProduct(id)!).filter(Boolean);
+  const items = LOOK_SLUGS.map((id) => getProduct(id)).filter((p): p is NonNullable<typeof p> => Boolean(p));
   const total = items.reduce((sum, p) => sum + p.price, 0);
+  if (items.length === 0) return null;
 
   return (
     <section className="bg-porcelana py-24 md:py-32">
@@ -56,7 +58,7 @@ export function ShopTheLook() {
                 }`}
               >
                 <span className="font-display italic text-2xl text-terracota w-6">{i+1}</span>
-                <div className="w-16"><ProductImage duotone={p.duotone} label="" aspect="1/1" arch={false} /></div>
+                <div className="w-16"><ProductImage duotone={p.duotone} src={p.images[0]} label="" aspect="1/1" arch={false} /></div>
                 <div className="flex-1">
                   <p className="caps text-muted-foreground">{p.category}</p>
                   <p className="font-display text-lg">{p.name}</p>

@@ -1,11 +1,6 @@
 import { Star } from "lucide-react";
 import { Reveal } from "@/components/brand/Reveal";
-import { products } from "@/data/products";
-
-const REVIEWS = products.filter((p) => p.testimonial).slice(0, 4).map((p) => ({
-  ...p.testimonial!,
-  product: p.name,
-}));
+import { testimonials as REVIEWS } from "@/data/testimonials";
 
 export function ProvaSocial() {
   return (

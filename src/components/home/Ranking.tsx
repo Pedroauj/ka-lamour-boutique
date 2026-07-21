@@ -1,16 +1,17 @@
 import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
-import { products } from "@/data/products";
 import { ProductImage } from "@/components/brand/ProductImage";
 import { brl } from "@/lib/format";
 import { Reveal } from "@/components/brand/Reveal";
 import { useStore } from "@/lib/store";
+import { useCatalog } from "@/lib/catalog-store";
+import { testimonials } from "@/data/testimonials";
 
 export function Ranking() {
   const s = useStore();
-  const top = products.filter((p) => p.testimonial).slice(0, 5);
-  // ensure 5
-  while (top.length < 5) top.push(products[top.length]);
+  const { products, bestsellers } = useCatalog();
+  const top = [...bestsellers(), ...products].filter((p, i, arr) => arr.findIndex((x) => x.id === p.id) === i).slice(0, 5);
+  if (top.length === 0) return null;
   return (
     <section className="bg-marfim py-24 md:py-32">
       <div className="mx-auto max-w-[1200px] px-5 md:px-10">
@@ -28,16 +29,16 @@ export function Ranking() {
                 {String(i + 1).padStart(2, "0")}
               </span>
               <Link to="/produto/$id" params={{ id: p.slug }}>
-                <ProductImage duotone={p.duotone} label="" aspect="3/4" arch />
+                <ProductImage duotone={p.duotone} src={p.images[0]} label="" aspect="3/4" arch />
               </Link>
               <div className="min-w-0">
                 <p className="caps text-muted-foreground">{p.category}</p>
                 <Link to="/produto/$id" params={{ id: p.slug }} className="font-display text-xl md:text-2xl text-carvao hover:text-terracota">
                   {p.name}
                 </Link>
-                {p.testimonial && (
+                {testimonials.find((t) => t.product === p.name) && (
                   <p className="mt-2 italic text-sm text-grafite/70 hidden md:block">
-                    "{p.testimonial.quote}" — {p.testimonial.name}, {p.testimonial.city}
+                    "{testimonials.find((t) => t.product === p.name)!.quote}" — {testimonials.find((t) => t.product === p.name)!.name}
                   </p>
                 )}
                 <p className="mt-2 text-terracota md:hidden">{brl(p.price)}</p>

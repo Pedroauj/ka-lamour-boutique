@@ -8,10 +8,12 @@ import { SearchOverlay } from "@/components/layout/SearchOverlay";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { WhatsAppFab } from "@/components/layout/WhatsAppFab";
 import { StoreProvider } from "@/lib/store";
+import { CatalogProvider } from "@/lib/catalog-store";
 import { Toaster } from "sonner";
 
 export function SiteShell({ children, transparentHeader = false }: { children: ReactNode; transparentHeader?: boolean }) {
   return (
+    <CatalogProvider>
     <StoreProvider>
       <PromoBar />
       <Header transparent={transparentHeader} />
@@ -26,5 +28,6 @@ export function SiteShell({ children, transparentHeader = false }: { children: R
         style: { background: "#2D2A29", color: "#FAF6F1", border: "1px solid #9C4F44", borderRadius: 0, fontFamily: "Archivo" }
       }} />
     </StoreProvider>
+    </CatalogProvider>
   );
 }

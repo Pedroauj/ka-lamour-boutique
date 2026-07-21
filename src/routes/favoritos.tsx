@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { useStore } from "@/lib/store";
-import { products } from "@/data/products";
+import { useCatalog } from "@/lib/catalog-store";
 import { ProductCard } from "@/components/product/ProductCard";
 
 export const Route = createFileRoute("/favoritos")({
@@ -19,6 +19,7 @@ function FavPage() {
 
 function Inner() {
   const { favorites } = useStore();
+  const { products } = useCatalog();
   const items = products.filter((p) => favorites.includes(p.id));
   return (
     <div className="pt-32 pb-24 mx-auto max-w-[1400px] px-5 md:px-10">

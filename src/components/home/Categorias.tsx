@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ProductCard } from "@/components/product/ProductCard";
-import { byType, type ProductType } from "@/data/products";
+import { type ProductType } from "@/data/products";
+import { useCatalog } from "@/lib/catalog-store";
 import { Reveal } from "@/components/brand/Reveal";
 
 const TABS: { key: ProductType; label: string }[] = [
@@ -10,6 +11,7 @@ const TABS: { key: ProductType; label: string }[] = [
 ];
 
 export function Categorias() {
+  const { byType } = useCatalog();
   const [tab, setTab] = React.useState<ProductType>("roupa");
   const items = byType(tab).slice(0, 6);
   return (
